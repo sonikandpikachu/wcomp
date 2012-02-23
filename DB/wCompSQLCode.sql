@@ -124,22 +124,8 @@ DROP TABLE IF EXISTS `wComp`.`wComp_ODD` ;
 CREATE  TABLE IF NOT EXISTS `wComp`.`wComp_ODD` (
   `id_ODD` INT NOT NULL AUTO_INCREMENT ,
   `ODD_Name` VARCHAR(45) NULL ,
+  `ODD_DSSValue` FLOAT NULL ,
   PRIMARY KEY (`id_ODD`) )
-ENGINE = MyISAM
-DEFAULT CHARACTER SET = cp1251
-COLLATE = cp1251_general_ci;
-
-
--- -----------------------------------------------------
--- Table `wComp`.`wComp_OS`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `wComp`.`wComp_OS` ;
-
-CREATE  TABLE IF NOT EXISTS `wComp`.`wComp_OS` (
-  `id_OS` INT NOT NULL AUTO_INCREMENT ,
-  `OS_Name` VARCHAR(45) NULL ,
-  `OS_DSSValue` FLOAT NULL ,
-  PRIMARY KEY (`id_OS`) )
 ENGINE = MyISAM
 DEFAULT CHARACTER SET = cp1251
 COLLATE = cp1251_general_ci;
@@ -171,7 +157,6 @@ CREATE  TABLE IF NOT EXISTS `wComp`.`wComp_Device` (
   `Device_Name` VARCHAR(45) NULL ,
   `Device_MarkName` VARCHAR(45) NULL ,
   `wComp_Type_id_Type` INT NOT NULL ,
-  `Device_Color` VARCHAR(45) NULL ,
   `Device_H` FLOAT NULL ,
   `Device_W` FLOAT NULL ,
   `Device_L` FLOAT NULL ,
@@ -183,7 +168,6 @@ CREATE  TABLE IF NOT EXISTS `wComp`.`wComp_Device` (
   `wComp_HDD_id_HDD` INT NOT NULL ,
   `wComp_Audio_id_Audio` INT NOT NULL ,
   `wComp_ODD_id_ODD` INT NOT NULL ,
-  `wComp_OS_id_OS` INT NOT NULL ,
   `wComp_WiFi_id_WiFi` INT NOT NULL ,
   `Device_WorkTime` FLOAT NULL ,
   `Device_USBCount` INT NULL ,
@@ -205,8 +189,22 @@ CREATE  TABLE IF NOT EXISTS `wComp`.`wComp_Device` (
   INDEX `fk_wComp_Device_wComp_HDD1` (`wComp_HDD_id_HDD` ASC) ,
   INDEX `fk_wComp_Device_wComp_Audio1` (`wComp_Audio_id_Audio` ASC) ,
   INDEX `fk_wComp_Device_wComp_ODD1` (`wComp_ODD_id_ODD` ASC) ,
-  INDEX `fk_wComp_Device_wComp_OS1` (`wComp_OS_id_OS` ASC) ,
   INDEX `fk_wComp_Device_wComp_WiFi1` (`wComp_WiFi_id_WiFi` ASC) )
+ENGINE = MyISAM
+DEFAULT CHARACTER SET = cp1251
+COLLATE = cp1251_general_ci;
+
+
+-- -----------------------------------------------------
+-- Table `wComp`.`wComp_OS`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `wComp`.`wComp_OS` ;
+
+CREATE  TABLE IF NOT EXISTS `wComp`.`wComp_OS` (
+  `id_OS` INT NOT NULL AUTO_INCREMENT ,
+  `OS_Name` VARCHAR(45) NULL ,
+  `OS_DSSValue` FLOAT NULL ,
+  PRIMARY KEY (`id_OS`) )
 ENGINE = MyISAM
 DEFAULT CHARACTER SET = cp1251
 COLLATE = cp1251_general_ci;
@@ -220,7 +218,6 @@ DROP TABLE IF EXISTS `wComp`.`wComp_Store` ;
 CREATE  TABLE IF NOT EXISTS `wComp`.`wComp_Store` (
   `id_Store` INT NOT NULL AUTO_INCREMENT ,
   `Store_Name` VARCHAR(45) NULL ,
-  `Store_Href` VARCHAR(150) NULL ,
   PRIMARY KEY (`id_Store`) )
 ENGINE = MyISAM
 DEFAULT CHARACTER SET = cp1251
@@ -239,9 +236,12 @@ CREATE  TABLE IF NOT EXISTS `wComp`.`wComp_CDevice` (
   `wComp_Device_id_Device` INT NOT NULL ,
   `wComp_Store_id_Store` INT NOT NULL ,
   `CDevice_Sale` INT NULL ,
+  `CDevice_Href` VARCHAR(80) NULL ,
+  `wComp_OS_id_OS` INT NOT NULL ,
   PRIMARY KEY (`id_CDevice`) ,
   INDEX `fk_wComp_CDevice_wComp_Device1` (`wComp_Device_id_Device` ASC) ,
-  INDEX `fk_wComp_CDevice_wComp_Store1` (`wComp_Store_id_Store` ASC) )
+  INDEX `fk_wComp_CDevice_wComp_Store1` (`wComp_Store_id_Store` ASC) ,
+  INDEX `fk_wComp_CDevice_wComp_OS1` (`wComp_OS_id_OS` ASC) )
 ENGINE = MyISAM
 DEFAULT CHARACTER SET = cp1251
 COLLATE = cp1251_general_ci;
@@ -356,7 +356,7 @@ DROP TABLE IF EXISTS `wComp`.`wComp_Condition` ;
 CREATE  TABLE IF NOT EXISTS `wComp`.`wComp_Condition` (
   `id_Condition` INT NOT NULL AUTO_INCREMENT ,
   `wComp_AnswerChange_idSomeChange` INT NOT NULL ,
-  `Parametr_Name` VARCHAR(45) NULL ,
+  `Condition_Name` VARCHAR(45) NULL ,
   PRIMARY KEY (`id_Condition`, `wComp_AnswerChange_idSomeChange`) ,
   INDEX `fk_wComp_Parameter_wComp_AnswerChange1` (`wComp_AnswerChange_idSomeChange` ASC) )
 ENGINE = MyISAM
@@ -373,7 +373,8 @@ CREATE  TABLE IF NOT EXISTS `wComp`.`wComp_Criteria` (
   `id_Criteria` INT NOT NULL AUTO_INCREMENT ,
   `Criteria_DefaultValue` FLOAT NULL ,
   `wComp_Parametr_id_Parametr` INT NOT NULL ,
-  `Parametr_Name` VARCHAR(45) NULL ,
+  `Criteria_Name` VARCHAR(45) NULL ,
+  `Criteria_MinMax` INT NULL ,
   PRIMARY KEY (`id_Criteria`, `wComp_Parametr_id_Parametr`) ,
   INDEX `fk_wComp_Criteria_wComp_Parametr1` (`wComp_Parametr_id_Parametr` ASC) )
 ENGINE = MyISAM
@@ -394,6 +395,38 @@ CREATE  TABLE IF NOT EXISTS `wComp`.`wComp_AnswerChange` (
   PRIMARY KEY (`id_AnswerChange`) ,
   INDEX `fk_wComp_AnswerChange_wComp_Parametr1` (`wComp_Parametr_id_Parametr` ASC) ,
   INDEX `fk_wComp_AnswerChange_wComp_Answer1` (`wComp_Answer_id_Answer` ASC) )
+ENGINE = MyISAM
+DEFAULT CHARACTER SET = cp1251
+COLLATE = cp1251_general_ci;
+
+
+-- -----------------------------------------------------
+-- Table `wComp`.`wComp_Color`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `wComp`.`wComp_Color` ;
+
+CREATE  TABLE IF NOT EXISTS `wComp`.`wComp_Color` (
+  `id_ColorList` INT NOT NULL AUTO_INCREMENT ,
+  `Color_NameRUS` VARCHAR(45) NULL ,
+  `Color_NameENG` VARCHAR(45) NULL ,
+  PRIMARY KEY (`id_ColorList`) )
+ENGINE = MyISAM
+DEFAULT CHARACTER SET = cp1251
+COLLATE = cp1251_general_ci;
+
+
+-- -----------------------------------------------------
+-- Table `wComp`.`wComp_ColorList`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `wComp`.`wComp_ColorList` ;
+
+CREATE  TABLE IF NOT EXISTS `wComp`.`wComp_ColorList` (
+  `id_ColorList` INT NOT NULL AUTO_INCREMENT ,
+  `wComp_Device_id_Device` INT NOT NULL ,
+  `wComp_Color_id_ColorList` INT NOT NULL ,
+  PRIMARY KEY (`id_ColorList`) ,
+  INDEX `fk_wComp_ColorList_wComp_Device1` (`wComp_Device_id_Device` ASC) ,
+  INDEX `fk_wComp_ColorList_wComp_Color1` (`wComp_Color_id_ColorList` ASC) )
 ENGINE = MyISAM
 DEFAULT CHARACTER SET = cp1251
 COLLATE = cp1251_general_ci;
