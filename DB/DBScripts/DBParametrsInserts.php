@@ -35,7 +35,10 @@ mysql_query("TRUNCATE TABLE  wComp_Criteria");
 mysql_query("TRUNCATE TABLE  wComp_Condition");
 mysql_query("TRUNCATE TABLE  wComp_Parametr");
 $ini_array = parse_ini_file("Parametrs.ini", true);
+$i = 0;
 foreach ($ini_array as $ini) {
+    if (!array_key_exists("autoCondition", $ini))
+        $ini["autoCondition"] = false;
     if ($ini["type"] == "criteria") {
         $data = array();
         $data[0] = $ini["href"];
@@ -52,6 +55,8 @@ foreach ($ini_array as $ini) {
             $data[3] = 1;
         $q = insert("wComp_Criteria", $data, $conn);
         mysql_query($q) or die("insert failed");
+        if ($ini["autoCondition"])
+            $ini["type"] = "condition";
 
     }
     if ($ini["type"] == "condition") {
@@ -60,13 +65,13 @@ foreach ($ini_array as $ini) {
         $q = insert("wComp_Parametr", $data, $conn);
         mysql_query($q) or die("insert failed");
         $lastid = mysql_insert_id();
-        $data = array();      
+        $data = array();
         $data[0] = $lastid;
-        $data[1] = $ini["name"];       
+        $data[1] = $ini["name"];
         $q = insert("wComp_Condition", $data, $conn);
         mysql_query($q) or die("insert failed");
 
-    }   
+    }
 }
 
 ?>
