@@ -1,1 +1,4 @@
-Deny from all
+php_value mbstring.language "Russian"
+php_value mbstring.http_input "auto"
+php_value mbstring.http_output "cp1251"
+php_value mbstring.encoding_translation "On"
