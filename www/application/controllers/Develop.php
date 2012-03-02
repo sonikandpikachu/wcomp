@@ -16,7 +16,7 @@ class Develop extends CI_Controller {
     }
     
     function test(){
-        echo "hkk";
+        echo "test";
     }
     
 }
