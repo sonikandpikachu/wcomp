@@ -69,7 +69,7 @@ $config['url_suffix'] = '';
 | than english.
 |
 */
-$config['language']	= 'english';
+$config['language']	= 'russian';
 
 /*
 |--------------------------------------------------------------------------
@@ -80,7 +80,7 @@ $config['language']	= 'english';
 | that require a character set to be provided.
 |
 */
-$config['charset'] = 'UTF-8';
+$config['charset'] = 'windows-1251';
 
 /*
 |--------------------------------------------------------------------------
