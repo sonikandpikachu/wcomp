@@ -16,6 +16,7 @@ class AddQuestion extends CI_Controller {
     public function index(){
         $this->load->library('QuestionAdmin/lib_Question','','lib_Question');
         $this->load->library('QuestionAdmin/lib_Answer', '', 'lib_Answer');
+        //$this->load->model('QuestionAdmin/mdl_General','mdl_q');
         $crit_arr = $this->lib_Question->getCriteria();
         $cond_arr = $this->lib_Question->getCondition();
         $data = array ('cond' => $cond_arr, 'crit' => $crit_arr);
@@ -26,8 +27,6 @@ class AddQuestion extends CI_Controller {
         $qstnTxt = $_POST['qstnTxt'];
         $answers = array();
         
-        print_r($_POST);
-        echo'<br>';
         foreach ($_POST as $key => $value){
             $q1 = strpos($key,'ans');
             if ($q1 == 2){
@@ -35,20 +34,18 @@ class AddQuestion extends CI_Controller {
                 $id = str_replace('Txt','',$str1);
                 $ans = array();
                 $ans['Txt'] = $value;
-                $ans['Type'] = 'common';
-                echo 'anstxt = '.$value;
                 $ans['Cond'] = $this->findCName($id.'Cond');
                 $ans['TxtCond'] = $this->findCName($id.'TxtCond');
                 $ans['Crit'] = $this->findCName($id.'Crit');
                 $ans['TxtCrit'] = $this->findCName($id.'TxtCrit');
-                echo('<br>Answer'.$id.':<br>');
-                print_r($ans);
+                $ans['Answer_Type'] = 'common';
                 $answers[] = $ans;
             }        
         }
 
         $this->lib_Answer->addQuestionAndAnswers($qstnTxt, $answers);
     }
+    
     
     private function findCName ($name) {
         $rez = array();

@@ -12,6 +12,15 @@ class mdl_Answer extends mdl_General {
         $this->tableName = 'Answer';
     }
     
+    /**
+     * @return resultArray - all answers for id question 
+    */
+    function getAllForQuestion($id) {
+        $this->db->where('wComp_id_ThisQuestion',$id);
+        $query = $this->db->get($this->tableName);
+        return $query->result_array();
+    }
+    
 } 
 
 ?>

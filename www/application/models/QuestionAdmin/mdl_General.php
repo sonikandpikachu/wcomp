@@ -31,14 +31,16 @@ class mdl_General extends CI_Model {
     
     function get($id) {
         $this->db->where($this->tableId, $id);
-        $query = $this->db->$get($this->tableName);
+        $query = $this->db->get($this->tableName);
         return $query->row_array();
     }
     
-    function getAll () {
-        $query = $this->db->$get($this->tableName);
+    public function getAll() {
+        $query = $this->db->get($this->tableName);
+        echo $this->tableName;
         return $query->result_array();
     }
+    
 }
 
 ?>

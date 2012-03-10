@@ -8,18 +8,12 @@
 class lib_Answer {
     
     function __construct() {
-        $this->loadModels();
+        $this->loadDatabase();
     }
     
-    private function loadModels () {
+    private function loadDatabase () {
         $CI = &get_instance();
         $CI->load->database();
-        echo "blablabal 1";
-        $CI->load->model('mdl_Question','mdl_q');//question model
-        echo "blablabal 2";
-        $CI->load->model('mdl_Answer','mdl_ans');//answer model
-        echo "blablabal 3";
-        $CI->load->model('mdl_AnswerChange','mdl_ac');//answer change model
     }
     
     /**
@@ -34,6 +28,7 @@ class lib_Answer {
      */
     function addAnswerWithChanges ($ansArr, $chngArr) {
         $CI = &get_instance();
+        $CI->load->model('QuestionAdmin/mdl_Answer','mdl_ans');//answer model
           $idAns = $CI->mdl_ans->insert($ansArr);
           foreach ($chngArr as $el) {
             $el['wComp_Answer_id_Answer'] = $idAns;
@@ -52,6 +47,10 @@ class lib_Answer {
      */ 
     function addQuestionAndAnswers ($qstnTxt, $answers) {
         $CI = &get_instance();
+        $CI->load->model('QuestionAdmin/mdl_General','mdl_gnrl');
+        $CI->load->model('QuestionAdmin/mdl_Question','mdl_q');//question model
+        $CI->load->model('QuestionAdmin/mdl_Answer','mdl_ans');//answer model
+        $CI->load->model('QuestionAdmin/mdl_AnswerChange','mdl_ac');//answer change model
         //question
         $qstnArr = array();
         $qstnArr['Question_Text'] = $qstnTxt;
@@ -59,9 +58,9 @@ class lib_Answer {
         foreach ($answers as $ans) {
             //answer:
             $ansArr = array();
-            $ansArr['Answer_Type'] = $ans['type'];
+            $ansArr['Answer_Type'] = $ans['Answer_Type'];
             $ansArr['Answer_Text'] = $ans['Txt'];
-            $ansArr['wComp_id_ThisQuetion'] = $idQstn;
+            $ansArr['wComp_id_ThisQuestion'] = $idQstn;
             
             //answer change:
             $chngArr = array();

@@ -10,7 +10,7 @@ class mdl_Question extends mdl_General {
     function __construct() {
         $this->tableId = 'id_Question';
         $this->tableName = 'Question';
-    }
+    }        
     
 } 
 

@@ -102,6 +102,8 @@ function removeC (idAns,name,id) {
 }
 
 </script>
+<a href="http://wcomp/index.php/QuestionAdmin/ShowQuestion/">Show all questions</a>
+<br>
 <div id='question'>
 <h3>Text of Question:</h3>
 <form action='http://wcomp/index.php/QuestionAdmin/AddQuestion/add' method="POST">

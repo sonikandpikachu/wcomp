@@ -7,5 +7,7 @@
 <body>
 <h3>Develop Menu:</h3>
 1.<a href="http://wcomp/index.php/QuestionAdmin/AddQuestion/">Go to adding questions</a>
+<br>
+2.<a href="http://wcomp/index.php/QuestionAdmin/ShowQuestion/">Show all questions</a>
 </body>
 </html>
