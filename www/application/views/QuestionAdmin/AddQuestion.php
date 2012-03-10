@@ -56,9 +56,11 @@ function addCondition (idAns){
     var newDiv = document.createElement('div');
     newDiv.id = 'ans'+idAns+'Cond'+condCount; 
     newDiv.innerHTML = 'Condition:<select name="ans'+idAns+'Cond'+condCount+'">'+
-                        '<option>condition</option>'+
-                        '<option>кондиция3</option>'+
-                        '</select>'+
+                        <? foreach ($cond as $row){
+                            echo "'<option value = ".$row["wComp_AnswerChange_idSomeChange"].">".
+                            $row["Condition_Name"]."</option>' +";
+                        } ?>
+                        +'</select>'+
                         'Text of change:'+
                         '<input name="ans'+idAns+'TxtCond'+condCount+
                         '" type="text" size="50" />'+
@@ -76,8 +78,11 @@ function addCriteria (idAns){
     var name = "Crit";
     newDiv.id = 'ans'+idAns+'Crit'+critCount; 
     newDiv.innerHTML = 'Criteria:<select name="ans'+idAns+'Crit'+critCount+'">'+
-                        '<option>Criteria1</option>'+
-                        '</select>'+
+                        <? foreach ($crit as $row){
+                            echo "'<option value = ".$row["wComp_Parametr_id_Parametr"].">".
+                            $row["Criteria_Name"]."</option>' +";
+                        } ?>
+                        +'</select>'+
                         'Text of change:'+
                         '<input name="ans'+idAns+'TxtCrit'+critCount+
                         '" type="text" size="50" />'+

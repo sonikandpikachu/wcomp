@@ -7,16 +7,19 @@
 
 class lib_Answer {
     
+    function __construct() {
+        $this->loadModels();
+    }
+    
     private function loadModels () {
-        $this->load->model('mdl_General','mdl_q');//question model
-        $this->mdl_q->tableName = 'Question';
-        $this->mdl_q->tableId = 'id_Question';
-        $this->load->model('mdl_General','mdl_ans');//answer model
-        $this->mdl_q->tableName = 'Answer';
-        $this->mdl_q->tableId = 'id_Answer';
-        $this->load->model('mdl_General','mdl_ac');//answer change model
-        $this->mdl_q->tableName = 'AnswerChange';
-        $this->mdl_q->tableId = 'id_AnswerChange';
+        $CI = &get_instance();
+        $CI->load->database();
+        echo "blablabal 1";
+        $CI->load->model('mdl_Question','mdl_q');//question model
+        echo "blablabal 2";
+        $CI->load->model('mdl_Answer','mdl_ans');//answer model
+        echo "blablabal 3";
+        $CI->load->model('mdl_AnswerChange','mdl_ac');//answer change model
     }
     
     /**
@@ -30,10 +33,11 @@ class lib_Answer {
      * @return id of added answer
      */
     function addAnswerWithChanges ($ansArr, $chngArr) {
-          $idAns = $this->mdl_ans->insert($ansArr);
+        $CI = &get_instance();
+          $idAns = $CI->mdl_ans->insert($ansArr);
           foreach ($chngArr as $el) {
             $el['wComp_Answer_id_Answer'] = $idAns;
-            $this->mdl_ac->insert($el);
+            $CI->mdl_ac->insert($el);
           }
     }
     /**
@@ -47,10 +51,11 @@ class lib_Answer {
      *          'TxtCrit' - array of answer change for criterias
      */ 
     function addQuestionAndAnswers ($qstnTxt, $answers) {
+        $CI = &get_instance();
         //question
         $qstnArr = array();
         $qstnArr['Question_Text'] = $qstnTxt;
-        $idQstn = $this->mdl_q->insert($qstnArr);
+        $idQstn = $CI->mdl_q->insert($qstnArr);
         foreach ($answers as $ans) {
             //answer:
             $ansArr = array();
@@ -87,6 +92,8 @@ class lib_Answer {
             $this->addAnswerWithChanges ($ansArr, $chngArr);
         }
     }
+    
+    
     
     
     

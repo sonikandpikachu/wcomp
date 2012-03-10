@@ -9,11 +9,17 @@ class AddQuestion extends CI_Controller {
     
     function __construct(){
         parent::__construct();
-        header("Content-type: text/html; charset=windows-1251");
+        $this->load->library('QuestionAdmin/lib_Question','','lib_Question');
+        $this->load->library('QuestionAdmin/lib_Answer', '', 'lib_Answer');
     }
     
     public function index(){
-        $this->load->view('QuestionAdmin/AddQuestion');
+        $this->load->library('QuestionAdmin/lib_Question','','lib_Question');
+        $this->load->library('QuestionAdmin/lib_Answer', '', 'lib_Answer');
+        $crit_arr = $this->lib_Question->getCriteria();
+        $cond_arr = $this->lib_Question->getCondition();
+        $data = array ('cond' => $cond_arr, 'crit' => $crit_arr);
+        $this->load->view('QuestionAdmin/AddQuestion', $data);
     }
     
     public function add(){
@@ -29,6 +35,7 @@ class AddQuestion extends CI_Controller {
                 $id = str_replace('Txt','',$str1);
                 $ans = array();
                 $ans['Txt'] = $value;
+                $ans['Type'] = 'common';
                 echo 'anstxt = '.$value;
                 $ans['Cond'] = $this->findCName($id.'Cond');
                 $ans['TxtCond'] = $this->findCName($id.'TxtCond');
@@ -36,9 +43,11 @@ class AddQuestion extends CI_Controller {
                 $ans['TxtCrit'] = $this->findCName($id.'TxtCrit');
                 echo('<br>Answer'.$id.':<br>');
                 print_r($ans);
-            } 
-        
+                $answers[] = $ans;
+            }        
         }
+
+        $this->lib_Answer->addQuestionAndAnswers($qstnTxt, $answers);
     }
     
     private function findCName ($name) {
