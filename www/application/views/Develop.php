@@ -5,6 +5,7 @@
 <title>Develop Menu</title>
 </head>
 <body>
+<? if (!empty($qstnAdd)) echo $qstnAdd.'<br>' ?>
 <h3>Develop Menu:</h3>
 1.<a href="http://wcomp/index.php/QuestionAdmin/AddQuestion/">Go to adding questions</a>
 <br>

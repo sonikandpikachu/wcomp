@@ -43,6 +43,7 @@ class lib_Question  {
         $ansData = array();//array of all answers
         foreach ($qstnArr as $q) {
             $ansArr = $CI->ans->getAllForQuestion($q['id_Question']);//all answers for question q
+            $oneAnswerData = array();//all questions for question q
             foreach ($ansArr as $a) {
                 $answer = array();//one answer with his cond and crit
                 $answer['Txt'] = $a['Answer_Text'];
@@ -50,8 +51,9 @@ class lib_Question  {
                 foreach ($anscArr as $ac) {
                     $answer[] = $ac['AnswerChange_TextChange'].'  cnd/crt:'.$ac['par'];//answer changes and their cond or crit
                 }
-                $ansData[] = $answer;
+                $oneAnswerData[] = $answer;
             } 
+            $ansData[] = $oneAnswerData;
         }
         $data['answers'] = $ansData;
         return $data;

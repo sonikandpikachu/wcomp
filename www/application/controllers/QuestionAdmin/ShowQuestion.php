@@ -15,7 +15,7 @@ class ShowQuestion extends CI_Controller {
     
     function index () {
         $data = $this->lib_Question->getQuestionsAndAnswers();
-        print_r($data);
+        //print_r($data);
         $this->load->view('QuestionAdmin/ShowQuestion', $data);
     }
 }

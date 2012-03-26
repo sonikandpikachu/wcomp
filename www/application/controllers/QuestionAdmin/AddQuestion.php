@@ -44,6 +44,8 @@ class AddQuestion extends CI_Controller {
         }
 
         $this->lib_Answer->addQuestionAndAnswers($qstnTxt, $answers);
+        $data = array("qstnAdd" => 'Question succesfully added');
+        $this->load->view('Develop',$data);
     }
     
     
