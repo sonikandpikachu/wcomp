@@ -7,8 +7,11 @@
 <body>
 <? if (!empty($qstnAdd)) echo $qstnAdd.'<br>' ?>
 <h3>Develop Menu:</h3>
-1.<a href="http://wcomp/index.php/QuestionAdmin/AddQuestion/">Go to adding questions</a>
+1.<a href="<?=base_url()?>/QuestionAdmin/AddQuestion/">Go to adding questions</a>
 <br>
-2.<a href="http://wcomp/index.php/QuestionAdmin/ShowQuestion/">Show all questions</a>
+2.<a href="<?=base_url()?>/QuestionAdmin/ShowQuestion/">Show all questions</a>
+<br>
+3.<a href="<?=base_url()?>/User/Main/">Show user view</a>
+<br>
 </body>
 </html>

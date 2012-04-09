@@ -106,7 +106,7 @@ function removeC (idAns,name,id) {
 <br>
 <div id='question'>
 <h3>Text of Question:</h3>
-<form action='http://wcomp/index.php/QuestionAdmin/AddQuestion/add' method="POST">
+<form action='<?=base_url()?>/QuestionAdmin/AddQuestion/add' method="POST">
 <input name="qstnTxt" type="text" size="150" />
 <br>
 <div id="answers" style = "margin-left:40px;">
