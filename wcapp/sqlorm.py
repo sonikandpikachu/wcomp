@@ -67,9 +67,25 @@ class ColorList(Base):
 
 class SQLController:
 
+    def __init__(self):
+        from sqlalchemy.orm import sessionmaker
+        self._session_maker = sessionmaker(bind=engine)
+        self._session_maker.configure(bind=engine)
+
     def create_sql_session(self):
-        self._session = create_session(bind=engine)
+        self._session = self._session_maker()
         return self._session
 
     def close_sql_session(self):
         self._session.close()
+
+
+if __name__ == '__main__':
+    color = Color(Color_NameENG = 'black')
+    controller = SQLController()
+    session = controller.create_sql_session()
+    controller.close_sql_session()
+#    session.new
+#    session.add(color)
+#    session.commit()
+    print session.query(Color).first().Color_NameENG
