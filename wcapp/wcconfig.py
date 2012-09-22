@@ -10,7 +10,7 @@ USERNAME = 'root'
 PASSWORD = 'wcomp'
 HOST = '127.0.0.1'
 
-CONNECTION_STRING = DATABASE + USERNAME + ':' + PASSWORD + '@' + HOST + '/wComp'
+CONNECTION_STRING = DATABASE + USERNAME + ':' + PASSWORD + '@' + HOST + '/wComp?charset=utf8'
 
 
 
