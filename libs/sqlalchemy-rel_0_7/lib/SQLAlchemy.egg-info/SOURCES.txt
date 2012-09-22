@@ -139,6 +139,8 @@ examples/versioning/test_versioning.py
 examples/vertical/__init__.py
 examples/vertical/dictlike-polymorphic.py
 examples/vertical/dictlike.py
+lib/sqlalchemy/cextension/processors.c
+lib/sqlalchemy/cextension/resultproxy.c
 lib/SQLAlchemy.egg-info/PKG-INFO
 lib/SQLAlchemy.egg-info/SOURCES.txt
 lib/SQLAlchemy.egg-info/dependency_links.txt

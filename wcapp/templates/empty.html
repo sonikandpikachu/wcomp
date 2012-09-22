@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang = "ru-RU">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}"/>
+	<title>{% block title %} {% endblock %}</title>
+</head>
+
+<body>
+	{% block body %} {% endblock %}
+</body>
+</html>

@@ -1,5 +1,5 @@
 @echo off
-set VIRTUAL_ENV=C:\Pasha\Python\projects\wcomp\venv
+set VIRTUAL_ENV=D:\wcomp\venv
 
 if not defined PROMPT (
     set PROMPT=$P$G

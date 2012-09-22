@@ -12,12 +12,17 @@ app = Flask(__name__)
 
 @app.route('/')
 def first():
-    return render_template('first_page.html', name = request.method)
+    return render_template('index.html', name = request.method)
     
     
-@app.route('/second/')
+@app.route('/qa/')
 def second():
-    return render_template('second_page.html', question = 'question', answers = ['ans1', 'ans2'], computers = ['c1','c2'])
+    question = 'what computer do you want?'
+    answers = ['ans1', 'ans2']
+    computers = []
+    computers.append((('name' , 'comp1'), ('cpu' , 'cpu 2'), ('stars' , 4), ('vga' , 'vga23')))
+    computers.append((('name' , 'comp2'), ('cpu' , 'cpu 2'), ('stars' , 4), ('vga' , 'vga23')))
+    return render_template('QandA.html', question = 'what computer do you want?', answers = answers, computers = computers)
 
  
 if __name__ == '__main__':

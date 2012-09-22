@@ -1,0 +1,39 @@
+{% extends "empty.html" %}
+{% block title %} What Computer {% endblock %}
+{% block body %}
+	<div id = "wrapper">
+        <div id = "header"> 
+            Header
+        </div>
+		<div id = "content">		
+            <div id = "question">
+               	{{ question }}
+                {% for ans in answers %}
+                    <hr> ans 
+                {% endfor %}
+            </div>
+            {% include 'menu.html' %}
+            <div id = "answer">
+                <ul id = "answerList">
+                    {% for comp in computers %}
+                    <li>
+                        <div id = "image"> 
+                            <img src = "{{ url_for('static', filename='img/computers/' + comp.0.1 + '.jpg') }}"/>
+                        </div>
+                        <div id = "description">
+                        {% for par in comp %}
+                        <p>
+                            {{ par.0 }}  -  {{ par.1 }}
+                        {% endfor %} 
+                        </div>
+                    </li>
+                    <hr>
+                    {% endfor %}
+                </ul>
+            </div>
+		</div>
+		<div id = "footer">
+         	Developed by Sonik and Pikachu
+		</div>
+    </div>
+{% endblock %}

@@ -1,1 +1,1 @@
-C:\Pasha\Python\Python27
+D:\Python27
