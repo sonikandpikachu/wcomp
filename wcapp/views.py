@@ -10,12 +10,13 @@ from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
+
 @app.route('/')
 def first():
-    return render_template('index.html', name = request.method)
+    return render_template('index.html', name = request.method) 
     
     
-@app.route('/qa/')
+@app.route('qa/')
 def second():
     question = 'what computer do you want?'
     answers = ['ans1', 'ans2']
