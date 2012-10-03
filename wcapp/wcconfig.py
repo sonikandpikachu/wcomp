@@ -10,7 +10,11 @@ USERNAME = 'root'
 PASSWORD = 'wcomp'
 HOST = '127.0.0.1'
 
-CONNECTION_STRING = DATABASE + USERNAME + ':' + PASSWORD + '@' + HOST + '/wComp?charset=utf8'
+GARBAGE_SCHEME = 'wComp'
+REAL_SCHEME = 'wc'
+
+GARBAGE_CONNECTION_STRING = DATABASE + USERNAME + ':' + PASSWORD + '@' + HOST + '/' + GARBAGE_SCHEME + '?charset=utf8'
+REAL_CONNECTION_STRING = DATABASE + USERNAME + ':' + PASSWORD + '@' + HOST + '/' + REAL_SCHEME + '?charset=utf8'
 
 
 
