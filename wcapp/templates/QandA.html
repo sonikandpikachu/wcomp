@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang = "ru-RU">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}"/>
+<title>What Computer</title>
+</head>
+
+<body>
+<div id = "wrapper">
+  <div id = "header"> <img src="{{ url_for('static', filename='img/main_header.jpg') }}" alt="What Computer"/> </div>
+  <div id = "content">
+    <div id = "question"> 
+      <!-- <img src="{{ url_for('static', filename='img/tempImg.jpg') }}" alt="tempImgr"/> --> 
+       <form method = 'post'>
+          {% include 'filters.html' %}
+          <p><input type="submit"></p>
+       </form>  
+    </div>
+
+    {% include 'menu.html' %}
+    <ul id = "answerList">
+      {% for comp in computers %}
+      <li class="answer">
+        <div class = "image"> <img src="img/compImg.jpg" alt = "Рисунок"/></div>
+        <div class = "descriptionSection">
+          <div class="title">
+            <div class = "name"> {{ comp.comp.name }} </div>
+            <div class="classification">
+              <div class="cover"></div>
+              <div class="progress" style="width: {{ comp.comp.dssv }}%;"></div>
+            </div>
+          </div>
+          <ul class = "description">
+            <li>
+              <div class="paramName">Название процессора:</div>
+              <div class="paramValue"> {{ comp.cpu.type }}</div>
+              <div class="paramStars">
+                <div class="cover"></div>
+                <div class="progress" style="width: {{ comp.cpu.dssv }}%;"></div>
+              </div>
+            </li>
+            <li>
+              <div class="paramName">Частота процессора:</div>
+              <div class="paramValue"> {{ comp.cpu.frequency }} </div>
+              <div class="paramStars">
+                <div class="cover"></div>
+                <div class="progress" style="width: {{ comp.cpu.dssv }}%;"></div>
+              </div>
+            </li>
+            <li>
+              <div class="paramName">Количество ядер/потоков:</div>
+              <div class="paramValue"> {{ comp.cpu.kernel_count}} </div>
+              <div class="paramStars">
+                <div class="cover"></div>
+                <div class="progress" style="width: {{ comp.cpu.dssv }}%;"></div>
+              </div>
+            </li>
+            <li>
+              <div class="paramName">Тип памяти:</div>
+              <div class="paramValue"> {{ comp.ram.name }} </div>
+              <div class="paramStars">
+                <div class="cover"></div>
+                <div class="progress" style="width: {{ comp.ram.dssv }}%;"></div>
+              </div>
+            </li>
+            <li>
+              <div class="paramName">Общий объем памяти:</div>
+              <div class="paramValue"> {{ comp.ram.amount }} / {{ comp.ram.max_amount }}</div>
+              <div class="paramStars">
+                <div class="cover"></div>
+                <div class="progress" style="width: {{ comp.ram.dssv }}%;"></div>
+              </div>
+            </li>
+            <li>
+              <div class="paramName">Чипсет материнской платы:</div>
+              <div class="paramValue"> {{ comp.chipset.name }} </div>
+              <div class="paramStars">
+                <div class="cover"></div>
+                <div class="progress" style="width: {{ comp.chipset.dssv }}%;"></div>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <ul class = "answerButtons">
+          <li> <a  href = "QandA.html"> <img src="{{ url_for('static', filename='img/img/greenButtons/wNextButton1.jpg') }}" alt="Далее" 
+                                onMouseOver="this.src='img/greenButtons/wNextButton2.jpg'" 
+                                onMouseOut="this.src='img/greenButtons/wNextButton1.jpg'"
+                                onMouseDown="this.src='img/greenButtons/wNextButton3.jpg'"
+                                /> </a></li>
+          <li> <a  href = "QandA.html"> <img src="{{ url_for('static', filename='img/img/greenButtons/wNextButton1.jpg') }}" alt="Далее" 
+                                onMouseOver="this.src='img/greenButtons/wNextButton2.jpg'" 
+                                onMouseOut="this.src='img/greenButtons/wNextButton1.jpg'"
+                                onMouseDown="this.src='img/greenButtons/wNextButton3.jpg'"
+                                /> </a> </li>
+        </ul>
+      </li>
+      {% endfor %} 
+    </ul>
+    <div id = "pagination">
+    	<ul>
+          {% if current_page > 1%}<li><a href="/qa/?page=1"> 1 </a></li>{% endif %}
+          {% if current_page > 2%}<li> ... </li>{% endif %}
+        	<li><a href="/qa/?page={{ current_page }}" class = "select" > {{ current_page }}  </a></li>
+          {% if current_page != pages_count %}<li><a href="/qa/?page={{ current_page + 1 }}"> {{ current_page + 1 }}  </a></li>{% endif %}
+          <li> ... </li>
+          <li><a href="#"> 5  </a></li>
+      </ul>
+    </div>
+  </div>
+  <div id = "footer"> Developed by Sonik and Pikachu </div>
+</div>
+</body>
+</html>
